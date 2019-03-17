@@ -1,1 +1,1 @@
-# ga_consumer_revenue_prediction
+# ga_customer_revenue_prediction
