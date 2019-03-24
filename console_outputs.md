@@ -1,31 +1,32 @@
-## Columns
+# Feature Discription:
 
-# channelGrouping 
+## channelGrouping 
 	- The channel via which the user came to the Store.
-# date 
+## date 
 	- The date on which the user visited the Store.
-# device 
+## device 
 	- The specifications for the device used to access the Store.
-# geoNetwork 
+## geoNetwork 
 	- This section contains information about the geography of the user.
-# socialEngagementType 
+## socialEngagementType 
 	- Engagement type, either "Socially Engaged" or "Not Socially Engaged".
-# totals 
+## totals 
 	- This section contains aggregate values across the session.
-# trafficSource 
+## trafficSource 
 	- This section contains information about the Traffic Source from which the session originated.
-# visitId 
+## visitId 
 	- An identifier for this session. This is part of the value usually stored as the _utmb cookie. This is only unique to the user. For a completely unique ID, you should use a combination of fullVisitorId and visitId.
-# visitNumber 
+## visitNumber 
 	- The session number for this user. If this is the first session, then this is set to 1.
-# visitStartTime 
+## visitStartTime 
 	- The timestamp (expressed as POSIX time).
-# hits 
+## hits 
 	- This row and nested fields are populated for any and all types of hits. Provides a record of all page visits.
-# customDimensions 
+## customDimensions 
 	- This section contains any user-level or session-level custom dimensions that are set for a session. This is a repeated field and has an entry for each dimension that is set.
-# totals 
+## totals 
 	- This set of columns mostly includes high-level aggregate data.
 
+# Results
 
 Number of unique customers with non-zero revenue :  7204 and the ratio is :  0.011865819390501416

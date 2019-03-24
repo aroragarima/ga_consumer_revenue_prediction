@@ -10,6 +10,8 @@ from pandas.io.json import json_normalize
 import matplotlib.pyplot as plt
 import seaborn as sns
 color = sns.color_palette()
+sns.set(style="whitegrid")
+sns.set_color_codes("pastel")
 
 from plotly import tools
 import plotly.offline as py
