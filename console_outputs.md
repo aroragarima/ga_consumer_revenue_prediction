@@ -3,7 +3,7 @@
 ##### channelGrouping - The channel via which the user came to the Store.
 ##### date - The date on which the user visited the Store.
 ##### device 
-The specifications for the device used to access the Store.
+-The specifications for the device used to access the Store.
 ##### geoNetwork 
 	- This section contains information about the geography of the user.
 ##### socialEngagementType 
