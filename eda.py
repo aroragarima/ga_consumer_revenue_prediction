@@ -23,6 +23,10 @@ target_variable_exploration(train_df)
 
 cols = find_constant_cols(train_df)
 
+# imputing 0 for missing target values
+train_df['totals.transactionRevenue'].fillna(0, inplace=True)
+
+# Browser Category
 cnt_srs = train_df.groupby('device.browser')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
 cnt_srs = cnt_srs.sort_values(by="count", ascending=False)
