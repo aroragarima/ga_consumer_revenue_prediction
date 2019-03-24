@@ -1,6 +1,6 @@
 # Feature Discription:
 
-## channelGrouping 
+### channelGrouping 
 	- The channel via which the user came to the Store.
 ## date 
 	- The date on which the user visited the Store.
