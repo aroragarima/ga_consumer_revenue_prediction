@@ -66,24 +66,24 @@ Number of unique customers with non-zero revenue :  7204 and the ratio is :  0.0
 | Tizen                  | 288    | 288                       | 0.0                |
 
 #### List of constant columns
-socialEngagementType
-device.browserSize 
-device.browserVersion 
-device.flashVersion 
-device.language 
-device.mobileDeviceBranding 
-device.mobileDeviceInfo 
-device.mobileDeviceMarketingName 
-device.mobileDeviceModel 
-device.mobileInputSelector 
-device.operatingSystemVersion 
-device.screenColors 
-device.screenResolution 
-geoNetwork.cityId 
-geoNetwork.latitude 
-geoNetwork.longitude 
-geoNetwork.networkLocation 
-totals.visits 
-trafficSource.adwordsClickInfo.criteriaParameters
+* socialEngagementType
+* device.browserSize 
+* device.browserVersion 
+* device.flashVersion 
+* device.language 
+* device.mobileDeviceBranding 
+* device.mobileDeviceInfo 
+* device.mobileDeviceMarketingName 
+* device.mobileDeviceModel 
+* device.mobileInputSelector 
+* device.operatingSystemVersion 
+* device.screenColors 
+* device.screenResolution 
+* geoNetwork.cityId 
+* geoNetwork.latitude 
+* geoNetwork.longitude 
+* geoNetwork.networkLocation 
+* totals.visits 
+* trafficSource.adwordsClickInfo.criteriaParameters
 
 Resultant df has now got 41 columns
