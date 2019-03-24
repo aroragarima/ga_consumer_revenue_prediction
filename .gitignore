@@ -3,3 +3,5 @@ datafiles/
 
 # ignore pycache directory
 __pycache__/
+
+*.swp
