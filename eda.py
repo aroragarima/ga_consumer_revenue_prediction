@@ -28,27 +28,27 @@ cols, train_df = drop_constant_cols(train_df)
 train_df['totals.transactionRevenue'].fillna(0, inplace=True)
 
 # Browser Category
-cnt_srs = train_df.groupby('device.browser')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
-cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-print(cnt_srs.head(10))
-plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'Browser Category -count')
-plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Browser Category -Non Zero Revenue Count')
-plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Browser Category -Mean Revenue')
+# cnt_srs = train_df.groupby('device.browser')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
+# cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
+# cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
+# print(cnt_srs.head(10))
+# plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'Browser Category -count')
+# plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Browser Category -Non Zero Revenue Count')
+# plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Browser Category -Mean Revenue')
 
 # Device Category
-cnt_srs = train_df.groupby('device.deviceCategory')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
-cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-print(cnt_srs.head(10))
-plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'Device -count')
-plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Device -Non Zero Revenue Count')
-plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Device -Mean Revenue')
+# cnt_srs = train_df.groupby('device.deviceCategory')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
+# cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
+# cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
+# print(cnt_srs.head(10))
+# plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'Device -count')
+# plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Device -Non Zero Revenue Count')
+# plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Device -Mean Revenue')
 # Operating system
-cnt_srs = train_df.groupby('device.operatingSystem')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
-cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-print(cnt_srs.head(10))
-plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'OS -count')
-plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, "OS -Non Zero Revenue Count")
-plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, "OS -Mean Revenue")
+# cnt_srs = train_df.groupby('device.operatingSystem')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
+# cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
+# cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
+# print(cnt_srs.head(10))
+# plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'OS -count')
+# plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, "OS -Non Zero Revenue Count")
+# plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, "OS -Mean Revenue")
