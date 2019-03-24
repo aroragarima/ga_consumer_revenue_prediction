@@ -13,16 +13,16 @@ def target_variable_exploration(df):
 	plt.scatter(range(gdf.shape[0]), np.sort(np.log1p(gdf["totals.transactionRevenue"].values)))
 	plt.xlabel('index', fontsize=12)
 	plt.ylabel('TransactionRevenue', fontsize=12)
-	plt.show()
-	plt.savefig(("target_variable_exploration.png"))
+	plt.savefig("target_variable_exploration.png")
 
-def find_constant_cols(df):
+def drop_constant_cols(df):
 	constant_cols = [c for c in df.columns if df[c].nunique(dropna=False)==1 ]
-	return constant_cols
+	df = df.drop(constant_cols, axis = 1)
+	return constant_cols, df
 
 target_variable_exploration(train_df)
 
-cols = find_constant_cols(train_df)
+cols, train_df = drop_constant_cols(train_df)
 
 # imputing 0 for missing target values
 train_df['totals.transactionRevenue'].fillna(0, inplace=True)
