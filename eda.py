@@ -1,5 +1,5 @@
 from dependencies import *
-
+from helpers import *
 train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
 
 def target_variable_exploration(df):
@@ -29,17 +29,20 @@ train_df['totals.transactionRevenue'].fillna(0, inplace=True)
 # Browser Category
 cnt_srs = train_df.groupby('device.browser')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)
+cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
 print(cnt_srs.head(10))
+plot_horizontally(cnt_srs.iloc, cnt_srs.index, "Browser Category -count")
 
 # Device Category
 cnt_srs = train_df.groupby('device.deviceCategory')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)
+cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
 print(cnt_srs.head(10))
+plot_horizontally(cnt_srs.iloc, cnt_srs.index, "Browser -count")
 
 # Operating system
 cnt_srs = train_df.groupby('device.operatingSystem')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-cnt_srs = cnt_srs.sort_values(by="count", ascending=False)
+cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
 print(cnt_srs.head(10))
+plot_horizontally(cnt_srs.iloc, cnt_srs.index, "OS -count")
