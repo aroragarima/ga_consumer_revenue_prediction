@@ -36,24 +36,6 @@ train_df['totals.transactionRevenue'].fillna(0, inplace=True)
 # plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Browser Category -Non Zero Revenue Count')
 # plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Browser Category -Mean Revenue')
 
-# Device Category
-# cnt_srs = train_df.groupby('device.deviceCategory')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
-# cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-# cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-# print(cnt_srs.head(10))
-# plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'Device -count')
-# plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Device -Non Zero Revenue Count')
-# plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Device -Mean Revenue')
-
-# Operating system
-# cnt_srs = train_df.groupby('device.operatingSystem')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
-# cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-# cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-# print(cnt_srs.head(10))
-# plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, 'OS -count')
-# plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, "OS -Non Zero Revenue Count")
-# plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, "OS -Mean Revenue")
-
 def extract_plots(df):
 	l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'channelGrouping','geoNetwork.city','geoNetwork.continent','geoNetwork.country','geoNetwork.metro','geoNetwork.networkDomain','geoNetwork.region','geoNetwork.subContinent','trafficSource.adContent','trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect','trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
 
