@@ -36,20 +36,23 @@ train_df['totals.transactionRevenue'].fillna(0, inplace=True)
 # plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Browser Category -Non Zero Revenue Count')
 # plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Browser Category -Mean Revenue')
 
-def extract_plots(df):
-	l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'channelGrouping','geoNetwork.city','geoNetwork.continent','geoNetwork.country','geoNetwork.metro','geoNetwork.networkDomain','geoNetwork.region','geoNetwork.subContinent','trafficSource.adContent','trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect','trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
+l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'channelGrouping','geoNetwork.city','geoNetwork.continent','geoNetwork.country','geoNetwork.metro','geoNetwork.networkDomain','geoNetwork.region','geoNetwork.subContinent','trafficSource.adContent','trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect','trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
+
+def extract_plots(df, top, l):
 
 	for col in l:
 		name = col.replace(".", " ")
 		print(name)
 		cnt_srs = df.groupby(col)['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 		cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
-		cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:10]
-		print(cnt_srs.head(10))
+		cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:top]
+		print(cnt_srs.head(top))
 		plot_horizontally(cnt_srs.iloc[:, 0], cnt_srs.index, '{} -count'.format(name))
 		plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, '{} -Non Zero Revenue Count'.format(name))
 		plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, '{} -Mean Revenue'.format(name))
 
 	return True
 
-extract_plots(train_df)
+# extract_plots(train_df, 10, l)
+
+extract_plots(train_df, 60, ['totals.hits'])
