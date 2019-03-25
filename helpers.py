@@ -5,4 +5,4 @@ def plot_horizontally(x, y, filename):
 	plt.title(filename)
 	sns.barplot(x=x, y=y, orient = "h")
 	plt.tight_layout()
-	plt.savefig("graph_plot/"+filename, bbox_inches='tight', dpi=100)
+	plt.savefig("graph_plots/"+filename, bbox_inches='tight', dpi=100)
