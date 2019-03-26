@@ -2,9 +2,8 @@
 # required for increasing the field size
 import os 
 import csv
+import sys
 csv.field_size_limit(sys.maxsize)
-pd.options.mode.chained_assignment = None
-pd.options.display.max_columns = 999
 
 import json
 import numpy as np
@@ -22,3 +21,6 @@ sns.set_color_codes("pastel")
 
 from sklearn import model_selection, preprocessing, metrics
 import lightgbm as lgb
+
+pd.options.mode.chained_assignment = None
+pd.options.display.max_columns = 999

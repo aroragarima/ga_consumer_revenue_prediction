@@ -32,6 +32,23 @@ This set of columns mostly includes high-level aggregate data.
 Number of unique customers with non-zero revenue :  7204 and the ratio is :  0.011865819390501416
 Shape of input datafile: (683145, 60) sampled from 1708337x13 records file
 
+#### Normalising JSON column 'geoNetwork' 
+
+|   | geoNetwork.city               | geoNetwork.cityId             | geoNetwork.continent | geoNetwork.country | geoNetwork.latitude           | geoNetwork.longitude          | geoNetwork.metro                  | geoNetwork.networkDomain | geoNetwork.networkLocation    | geoNetwork.region             | geoNetwork.subContinent |
+|---|-------------------------------|-------------------------------|----------------------|--------------------|-------------------------------|-------------------------------|-----------------------------------|--------------------------|-------------------------------|-------------------------------|-------------------------|
+| 0 | Cupertino                     | not available in demo dataset | Americas             | United States      | not available in demo dataset | not available in demo dataset | San Francisco-Oakland-San Jose CA | (not set)                | not available in demo dataset | California                    | Northern America        |
+| 1 | London                        | not available in demo dataset | Europe               | United Kingdom     | not available in demo dataset | not available in demo dataset | London                            | (not set)                | not available in demo dataset | England                       | Northern Europe         |
+| 2 | not available in demo dataset | not available in demo dataset | Europe               | Denmark            | not available in demo dataset | not available in demo dataset | not available in demo dataset     | fullrate.ninja           | not available in demo dataset | not available in demo dataset | Northern Europe         |
+| 3 | Mexico City                   | not available in demo dataset | Americas             | Mexico             | not available in demo dataset | not available in demo dataset | (not set)                         | uninet-ide.com.mx        | not available in demo dataset | Mexico City                   | Central America         |
+| 4 | not available in demo dataset | not available in demo dataset | Europe               | Netherlands        | not available in demo dataset | not available in demo dataset | not available in demo dataset     | (not set)                | not available in demo dataset | not available in demo dataset | Western Europe          |
+| 5 | not available in demo dataset | not available in demo dataset | Europe               | United Kingdom     | not available in demo dataset | not available in demo dataset | not available in demo dataset     | unknown.unknown          | not available in demo dataset | not available in demo dataset | Northern Europe         |
+| 6 | not available in demo dataset | not available in demo dataset | Europe               | Sweden             | not available in demo dataset | not available in demo dataset | not available in demo dataset     | gavlenet.com             | not available in demo dataset | not available in demo dataset | Northern Europe         |
+| 7 | not available in demo dataset | not available in demo dataset | Europe               | United Kingdom     | not available in demo dataset | not available in demo dataset | not available in demo dataset     | virginm.net              | not available in demo dataset | not available in demo dataset | Northern Europe         |
+| 8 | not available in demo dataset | not available in demo dataset | Asia                 | India              | not available in demo dataset | not available in demo dataset | not available in demo dataset     | (not set)                | not available in demo dataset | not available in demo dataset | Southern Asia           |
+| 9 | not available in demo dataset | not available in demo dataset | Europe               | United Kingdom     | not available in demo dataset | not available in demo dataset | not available in demo dataset     | virginm.net              | not available in demo dataset | not available in demo dataset | Northern Europe         |
+
+	geoNetwork after flattening split into 11 attributes
+
 #### Top 10s as per Browser category, Device, OS
 
 | device.browser    | count  | count of non-zero revenue | mean               |
