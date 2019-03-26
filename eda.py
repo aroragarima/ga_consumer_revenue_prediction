@@ -64,4 +64,4 @@ def extract_plots(df, top, l):
 
 extract_plots(train_df, 10, graphing)
 
-extract_plots(train_df, 60, ['totals.hits', 'totals.pageviews'])
+# extract_plots(train_df, 60, ['totals.hits', 'totals.pageviews'])
