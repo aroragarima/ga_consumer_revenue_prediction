@@ -25,7 +25,8 @@ target_variable_exploration(train_df)
 cols, train_df = drop_constant_cols(train_df)
 
 # imputing 0 for missing target values
-train_df['totals.transactionRevenue'].fillna(0, inplace=True)
+# train_df['totals.transactionRevenue'].fillna(0, inplace=True)
+
 print("Shape of Training dataframe after dropping constant columns: {}".format(train_df.shape))
 
 # Browser Category
@@ -51,7 +52,7 @@ def extract_plots(df, top, l):
 	for col in l:
 		name = col.replace(".", " ")
 		print(name)
-		cnt_srs = df.groupby(col)['totals.transactionRevenue'].agg(['sum', 'count', 'mean'])
+		cnt_srs = df.groupby(col)['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
 		cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
 		cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:top]
 		print(cnt_srs.head(top))
