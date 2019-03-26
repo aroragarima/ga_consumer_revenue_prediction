@@ -43,12 +43,15 @@ l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'chann
 	'trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect',
 	'trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
 
+graphing = ['device.browser', 'device.operatingSystem', 'geoNetwork.continent', 'geoNetwork.networkDomain', 
+		'trafficSource.source']
+
 def extract_plots(df, top, l):
 
 	for col in l:
 		name = col.replace(".", " ")
 		print(name)
-		cnt_srs = df.groupby(col)['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
+		cnt_srs = df.groupby(col)['totals.transactionRevenue'].agg(['sum', 'count', 'mean'])
 		cnt_srs.columns = ["count", "count of non-zero revenue", "mean"]
 		cnt_srs = cnt_srs.sort_values(by="count", ascending=False)[:top]
 		print(cnt_srs.head(top))
@@ -58,6 +61,6 @@ def extract_plots(df, top, l):
 
 	return True
 
-# extract_plots(train_df, 10, l)
+extract_plots(train_df, 10, graphing)
 
 extract_plots(train_df, 60, ['totals.hits', 'totals.pageviews'])
