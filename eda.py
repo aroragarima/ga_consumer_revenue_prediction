@@ -2,6 +2,7 @@ from dependencies import *
 from helpers import *
 
 train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
+print("Shape of input datafile: {}".format(train_df.shape))
 
 def target_variable_exploration(df):
 	df["totals.transactionRevenue"] = df["totals.transactionRevenue"].astype('float')
@@ -21,11 +22,11 @@ def drop_constant_cols(df):
 	return constant_cols, df
 
 target_variable_exploration(train_df)
-
 cols, train_df = drop_constant_cols(train_df)
 
 # imputing 0 for missing target values
 train_df['totals.transactionRevenue'].fillna(0, inplace=True)
+print("Shape of Training dataframe after dropping constant columns: {}".format(train_df.shape))
 
 # Browser Category
 # cnt_srs = train_df.groupby('device.browser')['totals.transactionRevenue'].agg(['size', 'count', 'mean'])
@@ -36,7 +37,11 @@ train_df['totals.transactionRevenue'].fillna(0, inplace=True)
 # plot_horizontally(cnt_srs.iloc[:, 1], cnt_srs.index, 'Browser Category -Non Zero Revenue Count')
 # plot_horizontally(cnt_srs.iloc[:, 2], cnt_srs.index, 'Browser Category -Mean Revenue')
 
-l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'channelGrouping','geoNetwork.city','geoNetwork.continent','geoNetwork.country','geoNetwork.metro','geoNetwork.networkDomain','geoNetwork.region','geoNetwork.subContinent','trafficSource.adContent','trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect','trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
+l = ['device.browser', 'device.deviceCategory', 'device.operatingSystem', 'channelGrouping',
+	'geoNetwork.city','geoNetwork.continent','geoNetwork.country','geoNetwork.metro','geoNetwork.networkDomain',
+	'geoNetwork.region','geoNetwork.subContinent','trafficSource.adContent',
+	'trafficSource.adwordsClickInfo.adNetworkType','trafficSource.campaign','trafficSource.isTrueDirect',
+	'trafficSource.keyword','trafficSource.medium','trafficSource.referralPath','trafficSource.source']
 
 def extract_plots(df, top, l):
 
