@@ -30,7 +30,7 @@ This set of columns mostly includes high-level aggregate data.
 # Results
 
 Number of unique customers with non-zero revenue :  7204 and the ratio is :  0.011865819390501416
-Shape of input datafile: (683145, 60)
+Shape of input datafile: (683145, 60) sampled from 1708337x13 records file
 
 #### Top 10s as per Browser category, Device, OS
 
