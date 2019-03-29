@@ -1,8 +1,8 @@
-
 # required for increasing the field size
-import os 
+import os
 import csv
 import sys
+
 csv.field_size_limit(sys.maxsize)
 
 import json
@@ -11,6 +11,7 @@ import pandas as pd
 from pandas.io.json import json_normalize
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 # color = sns.color_palette()
 # sns.set(style="whitegrid")
 sns.set_color_codes("pastel")
