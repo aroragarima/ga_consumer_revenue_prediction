@@ -1,6 +1,8 @@
 from dependencies import *
 from eda import drop_constant_cols
 from datetime import datetime
+import warnings
+warnings.filterwarnings("ignore")
 
 train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
 
@@ -62,16 +64,16 @@ for col in cat_cols:
 for col in num_cols:
     train_df[col] = train_df[col].astype(float)
 
-### creating a new feature space with better and more robust features
+### creating a new feature space with better and more robust training_features
 
-# features['channelGrouping'] = train_df['channelGrouping']
+# training_features['channelGrouping'] = train_df['channelGrouping']
 # temp = []
 # for i in train_df['date']:
 # 	temp.append(i[4:])
-# features['date'] = pd.Series(temp)
+# training_features['date'] = pd.Series(temp)
 
-features = pd.DataFrame()
-features['channelGrouping'] = train_df['channelGrouping']
+training_features = pd.DataFrame()
+training_features['channelGrouping'] = train_df['channelGrouping']
 
 date = []
 
@@ -81,7 +83,7 @@ for i in range(len(train_df)):
 	date.append(element[4:])
 
 
-def return_features(attribute):
+def return_training_features(attribute):
 	temp = []
 	for i in range(len(train_df[attribute])):
 		element = train_df[attribute][i]
@@ -89,7 +91,7 @@ def return_features(attribute):
 	print(temp)
 	return temp
 
-features['date'] = date
+training_features['date'] = date
 
 timestamp = []
 for i in range(len(train_df)):
@@ -97,17 +99,17 @@ for i in range(len(train_df)):
 	dt_object = datetime.fromtimestamp(element)
 	timestamp.append(dt_object.hour)
 
-features['fullVisitorId'] = train_df['fullVisitorId']
-features['visitStartTime'] = timestamp
-features['device.browser'] = train_df['device.browser']
-features['device.deviceCategory'] = train_df['device.deviceCategory']
-features['geoNetwork.networkDomain'] = train_df['geoNetwork.networkDomain']
-features['totals.pageviews'] = train_df['totals.pageviews']
-features['totals.timeOnSite'] = train_df['totals.timeOnSite']
-features['totals.transactionRevenue'] = train_df['totals.transactionRevenue']
-features['totals.transactions'] = train_df['totals.transactions']
-features['trafficSource.adContent'] = train_df['trafficSource.adContent']
-features['trafficSource.adwordsClickInfo.adNetworkType'] = train_df['trafficSource.adwordsClickInfo.adNetworkType']
-features['trafficSource.campaign'] = train_df['trafficSource.campaign']
-features['trafficSource.medium'] = train_df['trafficSource.medium']
-features['trafficSource.source'] = train_df['trafficSource.source']
+training_features['fullVisitorId'] = train_df['fullVisitorId']
+training_features['visitStartTime'] = timestamp
+training_features['device.browser'] = train_df['device.browser']
+training_features['device.deviceCategory'] = train_df['device.deviceCategory']
+training_features['geoNetwork.networkDomain'] = train_df['geoNetwork.networkDomain']
+training_features['totals.pageviews'] = train_df['totals.pageviews']
+training_features['totals.timeOnSite'] = train_df['totals.timeOnSite']
+training_features['totals.transactionRevenue'] = train_df['totals.transactionRevenue']
+training_features['totals.transactions'] = train_df['totals.transactions']
+training_features['trafficSource.adContent'] = train_df['trafficSource.adContent']
+training_features['trafficSource.adwordsClickInfo.adNetworkType'] = train_df['trafficSource.adwordsClickInfo.adNetworkType']
+training_features['trafficSource.campaign'] = train_df['trafficSource.campaign']
+training_features['trafficSource.medium'] = train_df['trafficSource.medium']
+training_features['trafficSource.source'] = train_df['trafficSource.source']
