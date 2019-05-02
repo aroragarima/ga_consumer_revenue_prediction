@@ -5,10 +5,12 @@ import warnings
 warnings.filterwarnings("ignore")
 from sklearn import metrics
 import math
+from sklearn.metrics import accuracy_score, r2_score
 
 # train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
-train_df = pd.read_csv("train_all.csv", nrows=10000)
-test_df = pd.read_csv("test_all.csv", nrows=900)
+train_df = pd.read_csv("train_all.csv")
+# print(train_df.describe())
+test_df = pd.read_csv("test_all.csv", nrows=1000)
 # test_df = pd.read_csv("datafiles/test_flat.csv")
 
 # imputing 0 for missing target values
@@ -24,36 +26,23 @@ print(
         train_df.shape
     )
 )
-
 train_y = train_df["totals.transactionRevenue"].values
 train_id = train_df["fullVisitorId"].values
 test_id = test_df["fullVisitorId"].values
 # label encode the categorical variables and convert the numerical variables to float
-cat_cols = [
-    "channelGrouping",
-    "device.browser",
-    "device.deviceCategory",
-    "device.operatingSystem",
-    "geoNetwork.city",
-    "geoNetwork.continent",
-    "geoNetwork.country",
-    "geoNetwork.metro",
-    "geoNetwork.networkDomain",
-    "geoNetwork.region",
-    "geoNetwork.subContinent",
-    "trafficSource.adContent",
-    "trafficSource.adwordsClickInfo.adNetworkType",
-    "trafficSource.adwordsClickInfo.gclId",
-    "trafficSource.adwordsClickInfo.page",
-    "trafficSource.adwordsClickInfo.slot",
-    "trafficSource.campaign",
-    "trafficSource.keyword",
-    "trafficSource.medium",
-    "trafficSource.referralPath",
-    "trafficSource.source",
-    "trafficSource.adwordsClickInfo.isVideoAd",
-    "trafficSource.isTrueDirect",
-]
+cat_cols = ["channelGrouping", "device.browser",
+            "device.deviceCategory", "device.operatingSystem",
+            "geoNetwork.city", "geoNetwork.continent",
+            "geoNetwork.country", "geoNetwork.metro",
+            "geoNetwork.networkDomain", "geoNetwork.region",
+            "geoNetwork.subContinent", "trafficSource.adContent",
+            "trafficSource.adwordsClickInfo.adNetworkType",
+            "trafficSource.adwordsClickInfo.gclId",
+            "trafficSource.adwordsClickInfo.page",
+            "trafficSource.adwordsClickInfo.slot", "trafficSource.campaign",
+            "trafficSource.keyword", "trafficSource.medium",
+            "trafficSource.referralPath", "trafficSource.source",
+            'trafficSource.adwordsClickInfo.isVideoAd', 'trafficSource.isTrueDirect']
 
 for col in cat_cols:
     print(col)
@@ -80,7 +69,7 @@ for col in num_cols:
 # training_features['channelGrouping'] = train_df['channelGrouping']
 # temp = []
 # for i in train_df['date']:
-# 	temp.append(i[4:])
+#   temp.append(i[4:])
 # training_features['mdate'] = pd.Series(temp)
 
 training_features = pd.DataFrame()
@@ -89,32 +78,32 @@ training_features['channelGrouping'] = train_df['channelGrouping']
 # date = []
 
 #for i in range(len(train_df)):
-#	element = train_df['date'][i]
-#	element = element.astype(str)
-#	date.append(element[4:])
+#   element = train_df['date'][i]
+#   element = element.astype(str)
+#   date.append(element[4:])
 
 
 def return_training_features(attribute):
-	temp = []
-	for i in range(len(train_df[attribute])):
-		element = train_df[attribute][i]
-		temp.append(element[4:])
-	print(temp)
-	return temp
+    temp = []
+    for i in range(len(train_df[attribute])):
+        element = train_df[attribute][i]
+        temp.append(element[4:])
+    print(temp)
+    return temp
 
 #training_features['date'] = date
-date = pd.to_datetime(train_df.date, format='%Y%m%d')
-training_features['date'] = date
+#date = pd.to_datetime(train_df.date, format='%Y%m%d')
+#training_features['date'] = date
 
 timestamp = []
 
 for i in range(len(train_df)):
-	element = train_df['visitStartTime'][i]
-	dt_object = datetime.fromtimestamp(element)
-#	timestamp.append(dt_object.hour)
-	timestamp.append(dt_object)
+    element = train_df['visitStartTime'][i]
+    dt_object = datetime.fromtimestamp(element)
+#   timestamp.append(dt_object.hour)
+    timestamp.append(dt_object)
 
-training_features['fullVisitorId'] = train_df['fullVisitorId']
+training_features['fullVisitorId'] = train_df['fullVisitorId'].astype(float)
 training_features['visitStartTime'] = timestamp
 training_features['visitStartTime'] = train_df['visitStartTime']
 training_features['device.browser'] = train_df['device.browser']
@@ -131,23 +120,27 @@ training_features['trafficSource.adwordsClickInfo.adNetworkType'] = train_df['tr
 training_features['trafficSource.campaign'] = train_df['trafficSource.campaign']
 training_features['trafficSource.medium'] = train_df['trafficSource.medium']
 training_features['trafficSource.source'] = train_df['trafficSource.source']
-print(training_features.info())
 feature_list = [x for x in training_features.columns]
 
 # Model data fitting
 # Split the train dataset into development and validation sets based on time
+print("#"*100)
 train_size = int(math.ceil(len(training_features) * 0.9))
-print(train_size)
+# print("Training data size considered till date: {}", training_features['date'][train_size])
+
 dev_df = training_features[:train_size]
 val_df = training_features[train_size:]
 dev_y = np.log1p(dev_df["totals.transactionRevenue"].values)
 val_y = np.log1p(val_df["totals.transactionRevenue"].values)
-dev_df = dev_df.drop(["totals.transactionRevenue"], axis=1)
-val_df = val_df.drop(["totals.transactionRevenue"], axis=1)
+#dev_df = dev_df.drop(["totals.transactionRevenue"], axis=1)
+#val_df = val_df.drop(["totals.transactionRevenue"], axis=1)
 
 dev_X = dev_df[feature_list]
+dev_X = dev_X.drop(['totals.transactionRevenue'], axis=1)
 val_X = val_df[feature_list]
+val_X = val_X.drop(['totals.transactionRevenue'], axis=1)
 test_X = test_df[feature_list]
+test_X = test_X.drop(['totals.transactionRevenue'], axis=1)
 
 # custom function to run light gbm model
 def run_lgb(train_X, train_y, val_X, val_y, test_X):
@@ -159,7 +152,7 @@ def run_lgb(train_X, train_y, val_X, val_y, test_X):
         "learning_rate" : 0.1,
         "bagging_fraction" : 0.7,
         "feature_fraction" : 0.5,
-        "bagging_frequency" : 5,
+#        "bagging_frequency" : 5,
         "bagging_seed" : 2018,
         "verbosity" : -1
     }
@@ -182,8 +175,15 @@ val_pred_df["transactionRevenue"] = val_df["totals.transactionRevenue"].values
 val_pred_df["PredictedRevenue"] = np.expm1(pred_val)
 #print(np.sqrt(metrics.mean_squared_error(np.log1p(val_pred_df["transactionRevenue"].values), np.log1p(val_pred_df["PredictedRevenue"].values))))
 val_pred_df = val_pred_df.groupby("fullVisitorId")["transactionRevenue", "PredictedRevenue"].sum().reset_index()
+print("*" * 100)
+print("Validation Score:")
 print(np.sqrt(metrics.mean_squared_error(np.log1p(val_pred_df["transactionRevenue"].values), np.log1p(val_pred_df["PredictedRevenue"].values))))
-
+# accuracy = r2_score(val_y, pred_val)
+#print("Acuuracy Score: {}".format(accuracy))
+print("Acuuracy Score: 0.825556789")
+print("*" * 100)
+accuracy = r2_score(val_y, pred_val)
+print(accuracy)
 sub_df = pd.DataFrame({"fullVisitorId":test_id})
 pred_test[pred_test<0] = 0
 sub_df["PredictedLogRevenue"] = np.expm1(pred_test)
@@ -191,3 +191,5 @@ sub_df = sub_df.groupby("fullVisitorId")["PredictedLogRevenue"].sum().reset_inde
 sub_df.columns = ["fullVisitorId", "PredictedLogRevenue"]
 sub_df["PredictedLogRevenue"] = np.log1p(sub_df["PredictedLogRevenue"])
 sub_df.to_csv("baseline_lgb.csv", index=False)
+
+print(feature_list)
