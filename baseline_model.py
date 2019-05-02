@@ -8,7 +8,7 @@ import math
 from sklearn.metrics import accuracy_score, r2_score
 
 # train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
-train_df = pd.read_csv("train_all.csv")
+train_df = pd.read_csv("train_all.csv", nrows=10000)
 # print(train_df.describe())
 test_df = pd.read_csv("test_all.csv", nrows=1000)
 # test_df = pd.read_csv("datafiles/test_flat.csv")
@@ -178,12 +178,10 @@ val_pred_df = val_pred_df.groupby("fullVisitorId")["transactionRevenue", "Predic
 print("*" * 100)
 print("Validation Score:")
 print(np.sqrt(metrics.mean_squared_error(np.log1p(val_pred_df["transactionRevenue"].values), np.log1p(val_pred_df["PredictedRevenue"].values))))
-# accuracy = r2_score(val_y, pred_val)
-#print("Acuuracy Score: {}".format(accuracy))
-print("Acuuracy Score: 0.825556789")
-print("*" * 100)
 accuracy = r2_score(val_y, pred_val)
-print(accuracy)
+print("Acuuracy Score: {}".format(accuracy))
+print("*" * 100)
+
 sub_df = pd.DataFrame({"fullVisitorId":test_id})
 pred_test[pred_test<0] = 0
 sub_df["PredictedLogRevenue"] = np.expm1(pred_test)
