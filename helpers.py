@@ -1,6 +1,5 @@
 from dependencies import *
 
-
 def plot_horizontally(x, y, filename):
     plt.figure(figsize=(8, 5))
     plt.title(filename)
