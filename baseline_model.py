@@ -8,7 +8,7 @@ import math
 from sklearn.metrics import accuracy_score, r2_score
 
 # train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
-train_df = pd.read_csv("train_all.csv", nrows=10000)
+train_df = pd.read_csv("train_all.csv")
 # print(train_df.describe())
 test_df = pd.read_csv("test_all.csv", nrows=1000)
 # test_df = pd.read_csv("datafiles/test_flat.csv")
