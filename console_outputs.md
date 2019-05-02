@@ -26,6 +26,35 @@ Shape of input datafile: (683145, 60) sampled from 1708337x13 records file
 
 	geoNetwork after flattening split into 11 attributes
 
+#### List of all attributes in training set
+Index(['Unnamed: 0', 'channelGrouping', 'customDimensions', 'date',
+       'fullVisitorId', 'hits', 'socialEngagementType', 'visitId',
+       'visitNumber', 'visitStartTime', 'device.browser', 'device.browserSize',
+       'device.browserVersion', 'device.deviceCategory', 'device.flashVersion',
+       'device.isMobile', 'device.language', 'device.mobileDeviceBranding',
+       'device.mobileDeviceInfo', 'device.mobileDeviceMarketingName',
+       'device.mobileDeviceModel', 'device.mobileInputSelector',
+       'device.operatingSystem', 'device.operatingSystemVersion',
+       'device.screenColors', 'device.screenResolution', 'geoNetwork.city',
+       'geoNetwork.cityId', 'geoNetwork.continent', 'geoNetwork.country',
+       'geoNetwork.latitude', 'geoNetwork.longitude', 'geoNetwork.metro',
+       'geoNetwork.networkDomain', 'geoNetwork.networkLocation',
+       'geoNetwork.region', 'geoNetwork.subContinent', 'totals.bounces',
+       'totals.hits', 'totals.newVisits', 'totals.pageviews',
+       'totals.sessionQualityDim', 'totals.timeOnSite',
+       'totals.totalTransactionRevenue', 'totals.transactionRevenue',
+       'totals.transactions', 'totals.visits', 'trafficSource.adContent',
+       'trafficSource.adwordsClickInfo.adNetworkType',
+       'trafficSource.adwordsClickInfo.criteriaParameters',
+       'trafficSource.adwordsClickInfo.gclId',
+       'trafficSource.adwordsClickInfo.isVideoAd',
+       'trafficSource.adwordsClickInfo.page',
+       'trafficSource.adwordsClickInfo.slot', 'trafficSource.campaign',
+       'trafficSource.isTrueDirect', 'trafficSource.keyword',
+       'trafficSource.medium', 'trafficSource.referralPath',
+       'trafficSource.source'],
+      dtype='object')
+
 #### List of constant columns
 * socialEngagementType
 * device.browserSize 
