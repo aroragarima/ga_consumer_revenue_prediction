@@ -15,7 +15,7 @@ columns = ["device", "geoNetwork", "totals", "trafficSource"]  # json columns
 
 dir_path = "datafiles/"
 # p = 0.25
-p = 0.7
+p = 1
 
 def json_read(df):
 
@@ -42,5 +42,5 @@ def json_read(df):
 
 
 if __name__ == '__main__':
-	sampled_data = json_read("train_v2.csv")
-	sampled_data.to_csv(r"train_all.csv")
+	sampled_data = json_read("test_v2.csv")
+	sampled_data.to_csv(r"test_all.csv")

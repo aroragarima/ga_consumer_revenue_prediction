@@ -4,10 +4,11 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings("ignore")
 from sklearn import metrics
+import math
 
 # train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
-train_df = pd.read_csv("train_all.csv")
-test_df = pd.read_csv("datafiles/test_v2.csv")
+train_df = pd.read_csv("train_all.csv", nrows=10000)
+test_df = pd.read_csv("test_all.csv", nrows=900)
 # test_df = pd.read_csv("datafiles/test_flat.csv")
 
 # imputing 0 for missing target values
@@ -80,7 +81,7 @@ for col in num_cols:
 # temp = []
 # for i in train_df['date']:
 # 	temp.append(i[4:])
-# training_features['date'] = pd.Series(temp)
+# training_features['mdate'] = pd.Series(temp)
 
 training_features = pd.DataFrame()
 training_features['channelGrouping'] = train_df['channelGrouping']
@@ -102,16 +103,20 @@ def return_training_features(attribute):
 	return temp
 
 #training_features['date'] = date
-training_features['date'] = train_df['date']
+date = pd.to_datetime(train_df.date, format='%Y%m%d')
+training_features['date'] = date
+
 timestamp = []
 
 for i in range(len(train_df)):
 	element = train_df['visitStartTime'][i]
 	dt_object = datetime.fromtimestamp(element)
-	timestamp.append(dt_object.hour)
+#	timestamp.append(dt_object.hour)
+	timestamp.append(dt_object)
 
 training_features['fullVisitorId'] = train_df['fullVisitorId']
 training_features['visitStartTime'] = timestamp
+training_features['visitStartTime'] = train_df['visitStartTime']
 training_features['device.browser'] = train_df['device.browser']
 training_features['device.deviceCategory'] = train_df['device.deviceCategory']
 training_features['geoNetwork.networkDomain'] = train_df['geoNetwork.networkDomain']
@@ -126,15 +131,19 @@ training_features['trafficSource.adwordsClickInfo.adNetworkType'] = train_df['tr
 training_features['trafficSource.campaign'] = train_df['trafficSource.campaign']
 training_features['trafficSource.medium'] = train_df['trafficSource.medium']
 training_features['trafficSource.source'] = train_df['trafficSource.source']
-
+print(training_features.info())
 feature_list = [x for x in training_features.columns]
 
 # Model data fitting
 # Split the train dataset into development and validation sets based on time
-dev_df = training_features[training_features['date']<=datetime.date(2017,5,31)]
-val_df = training_features[training_features['date']>datetime.date(2017,5,31)]
+train_size = int(math.ceil(len(training_features) * 0.9))
+print(train_size)
+dev_df = training_features[:train_size]
+val_df = training_features[train_size:]
 dev_y = np.log1p(dev_df["totals.transactionRevenue"].values)
-val_y = np.log1p(v["totals.transactionRevenue"].values)
+val_y = np.log1p(val_df["totals.transactionRevenue"].values)
+dev_df = dev_df.drop(["totals.transactionRevenue"], axis=1)
+val_df = val_df.drop(["totals.transactionRevenue"], axis=1)
 
 dev_X = dev_df[feature_list]
 val_X = val_df[feature_list]
