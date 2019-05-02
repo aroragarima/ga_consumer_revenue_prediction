@@ -6,13 +6,15 @@ warnings.filterwarnings("ignore")
 from sklearn import metrics
 
 # train_df = pd.read_csv("datafiles/train_sampled_v40perc.csv")
-train_df = pd.read_csv("datafiles/train_v2.csv")
-test_df = pd.read_csv("datafiles/test-flattened.csv")
+train_df = pd.read_csv("train_all.csv")
+test_df = pd.read_csv("datafiles/test_v2.csv")
+# test_df = pd.read_csv("datafiles/test_flat.csv")
+
 # imputing 0 for missing target values
 train_df["totals.transactionRevenue"].fillna(0, inplace=True)
 train_df = train_df.drop(["Unnamed: 0"], axis=1)  # serial number column
 constant_cols, train_df = drop_constant_cols(train_df)
-train_df = train_df.drop(['sessionId'], axis=1) # attribute absent in test set
+# train_df = train_df.drop(['sessionId'], axis=1) # attribute absent in test set
 
 constant_cols, test_df = drop_constant_cols(test_df)
 
@@ -55,10 +57,8 @@ cat_cols = [
 for col in cat_cols:
     print(col)
     lbl = preprocessing.LabelEncoder()
-    lbl.fit(
-        list(train_df[col].values.astype("str"))
-    )
-    train_df[col] = lbl.transform(list(train_df[col].values.astype("str")) + list(test_df[col].values.astype('str')))
+    lbl.fit(list(train_df[col].values.astype('str')) + list(test_df[col].values.astype('str')))
+    train_df[col] = lbl.transform(list(train_df[col].values.astype('str')))
     test_df[col] = lbl.transform(list(test_df[col].values.astype('str')))
 
 num_cols = [
@@ -85,12 +85,12 @@ for col in num_cols:
 training_features = pd.DataFrame()
 training_features['channelGrouping'] = train_df['channelGrouping']
 
-date = []
+# date = []
 
-for i in range(len(train_df)):
-	element = train_df['date'][i]
-	element = element.astype(str)
-	date.append(element[4:])
+#for i in range(len(train_df)):
+#	element = train_df['date'][i]
+#	element = element.astype(str)
+#	date.append(element[4:])
 
 
 def return_training_features(attribute):
@@ -101,9 +101,10 @@ def return_training_features(attribute):
 	print(temp)
 	return temp
 
-training_features['date'] = date
-
+#training_features['date'] = date
+training_features['date'] = train_df['date']
 timestamp = []
+
 for i in range(len(train_df)):
 	element = train_df['visitStartTime'][i]
 	dt_object = datetime.fromtimestamp(element)
@@ -114,6 +115,8 @@ training_features['visitStartTime'] = timestamp
 training_features['device.browser'] = train_df['device.browser']
 training_features['device.deviceCategory'] = train_df['device.deviceCategory']
 training_features['geoNetwork.networkDomain'] = train_df['geoNetwork.networkDomain']
+training_features['geoNetwork.continent'] = train_df['geoNetwork.continent']
+training_features['geoNetwork.country'] = train_df['geoNetwork.country']
 training_features['totals.pageviews'] = train_df['totals.pageviews']
 training_features['totals.timeOnSite'] = train_df['totals.timeOnSite']
 training_features['totals.transactionRevenue'] = train_df['totals.transactionRevenue']
@@ -124,16 +127,18 @@ training_features['trafficSource.campaign'] = train_df['trafficSource.campaign']
 training_features['trafficSource.medium'] = train_df['trafficSource.medium']
 training_features['trafficSource.source'] = train_df['trafficSource.source']
 
+feature_list = [x for x in training_features.columns]
+
 # Model data fitting
 # Split the train dataset into development and validation sets based on time
 dev_df = training_features[training_features['date']<=datetime.date(2017,5,31)]
 val_df = training_features[training_features['date']>datetime.date(2017,5,31)]
 dev_y = np.log1p(dev_df["totals.transactionRevenue"].values)
-val_y = np.log1p(val_df["totals.transactionRevenue"].values)
+val_y = np.log1p(v["totals.transactionRevenue"].values)
 
-dev_X = dev_df[cat_cols + num_cols]
-val_X = val_df[cat_cols + num_cols]
-test_X = test_df[cat_cols + num_cols]
+dev_X = dev_df[feature_list]
+val_X = val_df[feature_list]
+test_X = test_df[feature_list]
 
 # custom function to run light gbm model
 def run_lgb(train_X, train_y, val_X, val_y, test_X):
@@ -169,7 +174,6 @@ val_pred_df["PredictedRevenue"] = np.expm1(pred_val)
 #print(np.sqrt(metrics.mean_squared_error(np.log1p(val_pred_df["transactionRevenue"].values), np.log1p(val_pred_df["PredictedRevenue"].values))))
 val_pred_df = val_pred_df.groupby("fullVisitorId")["transactionRevenue", "PredictedRevenue"].sum().reset_index()
 print(np.sqrt(metrics.mean_squared_error(np.log1p(val_pred_df["transactionRevenue"].values), np.log1p(val_pred_df["PredictedRevenue"].values))))
-
 
 sub_df = pd.DataFrame({"fullVisitorId":test_id})
 pred_test[pred_test<0] = 0
