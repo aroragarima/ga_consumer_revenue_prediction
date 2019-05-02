@@ -78,3 +78,45 @@ Index(['Unnamed: 0', 'channelGrouping', 'customDimensions', 'date',
 
 Resultant df has now got 41 columns
 Shape of Training dataframe after dropping constant columns: (683145, 41)
+
+Shape of Training dataframe after dropping constant columns: (10000, 40)
+channelGrouping
+device.browser
+device.deviceCategory
+device.operatingSystem
+geoNetwork.city
+geoNetwork.continent
+geoNetwork.country
+geoNetwork.metro
+geoNetwork.networkDomain
+geoNetwork.region
+geoNetwork.subContinent
+trafficSource.adContent
+trafficSource.adwordsClickInfo.adNetworkType
+trafficSource.adwordsClickInfo.gclId
+trafficSource.adwordsClickInfo.page
+trafficSource.adwordsClickInfo.slot
+trafficSource.campaign
+trafficSource.keyword
+trafficSource.medium
+trafficSource.referralPath
+trafficSource.source
+trafficSource.adwordsClickInfo.isVideoAd
+trafficSource.isTrueDirect
+
+Training until validation scores don't improve for 100 rounds.
+[100]	valid_0's rmse: 2.03629
+[200]	valid_0's rmse: 2.02494
+[300]	valid_0's rmse: 2.02037
+[400]	valid_0's rmse: 2.01865
+Early stopping, best iteration is:
+[336]	valid_0's rmse: 2.00881
+****************************************************************************************************
+Validation Score:
+1.928835549344059
+Acuuracy Score: 0.825556789
+****************************************************************************************************
+#### Features List
+['channelGrouping', 'fullVisitorId', 'visitStartTime', 'device.browser', 'device.deviceCategory', 
+'geoNetwork.networkDomain', 'geoNetwork.continent', 'geoNetwork.country', 'totals.pageviews', 
+'totals.timeOnSite', 'totals.transactionRevenue', 'totals.transactions', 'trafficSource.adContent', 'trafficSource.adwordsClickInfo.adNetworkType', 'trafficSource.campaign', 'trafficSource.medium', 'trafficSource.source']
